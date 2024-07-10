@@ -18,7 +18,7 @@ module.exports = defineConfig({
       theme_color: '#4DBA87',
       icons: [
         {
-          src: '/img/icons/icon-192x192.png',
+          src: '/img/icons/android-chrome-192x192.png',
           sizes: '192x192',
           type: 'image/png'
         },
