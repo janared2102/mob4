@@ -41,7 +41,7 @@ Used Pinia because it centralizes business logic and makes it easier to control 
 
 <code>Web Share API</code> - allows to share data on devices and in browsers, which supports this type of API. Normally works on phones and allows to share data with contacts or to post it in social media
 
-## How app works
+## How the app works
 
 The application makes the most of the features that the PWA plugin provides. Since our task is to keep the application running even in the absence of internet, all requests to the api with quotes or news are cached, and in future requests, the application accesses the cache, not the api server.
 The log is saved locally, allowing the user to use it under any circumstances 
