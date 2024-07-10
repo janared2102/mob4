@@ -1,8 +1,11 @@
+/* Importiert die notwendigen Funktionen und Bibliotheken */
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import axios from 'axios'
 
+/* Definiert den Haupt-Store */
 export const useMainStore = defineStore('main', () => {
+  /* Definiert die reaktiven Zustände für Zitate, Artikel und Journal-Daten */
   const quote = ref({
     title: null,
     quote: null,
@@ -25,6 +28,7 @@ export const useMainStore = defineStore('main', () => {
 
   const journalTags = ref(new Set())
 
+  /* Lädt das Zitat des Tages */
   const loadQuoteOfTheDay = async () => {
     try {
       const date = new Date()
@@ -48,16 +52,18 @@ export const useMainStore = defineStore('main', () => {
         quote.value.author = result[0].author
         quote.value.tags = [result[0].category]
         quote.value.createdAt = createdAt
-      }
-      else {
+      } else {
         quote.value.error = true
       }
       quote.value.isLoading = false
     } catch (e) {
       console.log('Fetch error: ', e)
+      quote.value.error = true
+      quote.value.isLoading = false
     }
   }
 
+  /* Lädt die täglichen Artikel */
   const loadDailyArticles = async () => {
     try {
       const dateForQ = new Date(Date.now() - 86400000)
@@ -77,23 +83,25 @@ export const useMainStore = defineStore('main', () => {
 
       if (result.status === 'ok' && result.articles.length) {
         let i = -1
-        while (articles.value.articles.length < 9) {
+        while (articles.value.articles.length < 9 && i < result.articles.length - 1) {
           i++
           if (result.articles[i].description.length < 100) {
             continue
           }
           articles.value.articles.push(result.articles[i])
         }
-      }
-      else {
+      } else {
         articles.value.error = true
       }
       articles.value.isLoading = false
     } catch (e) {
       console.log('Fetch error: ', e)
+      articles.value.error = true
+      articles.value.isLoading = false
     }
   }
 
+  /* Lädt die Journal-Daten aus dem lokalen Speicher */
   const loadJournal = () => {
     const journalObject = localStorage.getItem('journal')
 
@@ -101,11 +109,11 @@ export const useMainStore = defineStore('main', () => {
       const journalObjectParsed = JSON.parse(journalObject)
       journalData.value = journalObjectParsed
       getJournalDataByTag()
-
       getTagsFromJournal()
     }
   }
 
+  /* Extrahiert die Tags aus den Journal-Daten */
   const getTagsFromJournal = () => {
     journalTags.value = new Set()
     for (const journalEntry of journalData.value) {
@@ -115,6 +123,7 @@ export const useMainStore = defineStore('main', () => {
     }
   }
 
+  /* Fügt neue Daten zum Journal hinzu */
   const addDataToJournal = (data) => {
     if (!journalData.value.length) {
       loadJournal()
@@ -123,12 +132,12 @@ export const useMainStore = defineStore('main', () => {
 
     journalData.value.push(data)
     getJournalDataByTag()
-
     getTagsFromJournal()
 
     localStorage.setItem('journal', JSON.stringify(journalData.value))
   }
 
+  /* Filtert die Journal-Daten nach einem bestimmten Tag */
   const getJournalDataByTag = (tag) => {
     if (!tag) {
       journalDataByTag.value = journalData.value
@@ -138,6 +147,7 @@ export const useMainStore = defineStore('main', () => {
     journalDataByTag.value = journalData.value.filter(r => r.tags?.includes(tag))
   }
 
+  /* Löscht einen Journal-Eintrag nach ID */
   const deleteJournalEntry = (id) => {
     journalData.value = journalData.value.filter(r => r.createdAt !== id)
 
@@ -147,11 +157,12 @@ export const useMainStore = defineStore('main', () => {
     localStorage.setItem('journal', JSON.stringify(journalData.value))
   }
 
+  /* Holt einen Journal-Eintrag nach ID */
   const getJournalEntryById = (id) => {
-    console.log(journalData.value)
     return journalData.value.find(r => r.createdAt === parseInt(id))
   }
 
+  /* Holt die zu teilenden Daten nach Typ und ID */
   const getShareDataById = (type, id) => {
     if (type === 'journal') {
       const journalEntry = journalData.value.find(r => r.createdAt === parseInt(id))
@@ -167,6 +178,7 @@ export const useMainStore = defineStore('main', () => {
     return null
   }
 
+  /* Gibt die Funktionen und Zustände des Stores zurück, um sie in der Anwendung zu nutzen */
   return {
     loadQuoteOfTheDay, loadDailyArticles, addDataToJournal,
     loadJournal, getJournalDataByTag, deleteJournalEntry,

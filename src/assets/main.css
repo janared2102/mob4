@@ -1,98 +1,113 @@
+/* Setzt alle Ränder und Abstände auf null und stellt sicher, dass die Box-Größenberechnung alle Innen- und Außenabstände berücksichtigt */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Styling für das Haupt-App-Element */
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  width: 100vw !important;
-  height: 100% !important;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  font-family: Avenir, Helvetica, Arial, sans-serif; /* Schriftarten-Reihenfolge */
+  -webkit-font-smoothing: antialiased; /* Glättet Schriftarten in Webkit-basierten Browsern */
+  -moz-osx-font-smoothing: grayscale; /* Glättet Schriftarten in OS X-Browsern */
+  text-align: center; /* Zentriert den Text */
+  color: #2c3e50; /* Textfarbe */
+  width: 100vw !important; /* Breite auf die gesamte Ansichtsfensterbreite setzen */
+  height: 100% !important; /* Höhe auf 100% setzen */
+  display: flex; /* Flexbox-Layout aktivieren */
+  align-items: center; /* Zentriert die Inhalte vertikal */
+  flex-direction: column; /* Ordnet die Inhalte vertikal an */
 }
 
+/* Styling für Header- und Hauptbereiche */
 header,
 main {
-  max-width: 1170px;
-  width: 100%;
+  max-width: 1170px; /* Maximale Breite */
+  width: 100%; /* Breite auf 100% setzen */
 }
 
+/* Entfernt die Unterstreichung von Links im Header-Navigationsbereich */
 header>nav a {
   text-decoration: none;
 }
 
+/* Styling für den aktiven Router-Link */
 nav a.router-link-exact-active {
-  font-weight: bold;
-  color: #35495e;
+  font-weight: bold; /* Fettdruck */
+  color: #35495e; /* Textfarbe */
 }
 
+/* Styling für die Hauptinhaltsdivs im main-Bereich */
 main>div {
-  margin: 0 0 20px 0;
+  margin: 0 0 20px 0; /* Abstand unten */
 }
 
+/* Styling für Textabsätze innerhalb von span-Elementen in der Klasse .article */
 .article>span>p {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  word-wrap: break-word; /* Zeilenumbruch bei langen Wörtern */
+  overflow-wrap: break-word; /* Alternative Zeilenumbruch bei langen Wörtern */
 }
 
+/* Allgemeines Styling für die Klassen .quote, .journal und .articles */
 .quote,
 .journal,
 .articles {
-  background: #fff;
-  border-radius: 20px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
-  box-shadow: 0px 2px 14px #b2bec3;
-  overflow: hidden;
+  background: #fff; /* Hintergrundfarbe weiß */
+  border-radius: 20px; /* Abgerundete Ecken */
+  -webkit-border-radius: 20px; /* Abgerundete Ecken für Webkit */
+  -moz-border-radius: 20px; /* Abgerundete Ecken für Mozilla */
+  -ms-border-radius: 20px; /* Abgerundete Ecken für Microsoft */
+  -o-border-radius: 20px; /* Abgerundete Ecken für Opera */
+  box-shadow: 0px 2px 14px #b2bec3; /* Schatteneffekt */
+  overflow: hidden; /* Verhindert Überlaufen von Inhalten */
 }
 
+/* Positionierung für den Header der Zitat-Box */
 .quote-header {
-  position: relative;
+  position: relative; /* Relative Positionierung */
 }
 
+/* Positionierung des Share-Buttons im Header der Zitat-Box */
 .quote-header>.share-button {
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: absolute; /* Absolute Positionierung */
+  top: 0; /* Oben ausgerichtet */
+  right: 0; /* Rechts ausgerichtet */
 }
 
+/* Styling für Artikel-Divs und Journal-Speicherplatten */
 .articles>div,
 .journal-saves-plates {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 13px;
-  width: 100%;
-  max-width: 1200px;
+  display: grid; /* Grid-Layout */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive Spalten */
+  gap: 13px; /* Abstand zwischen den Grid-Elementen */
+  width: 100%; /* Breite auf 100% setzen */
+  max-width: 1200px; /* Maximale Breite */
 }
 
-.article:nth-last-child() {
+/* Styling für den letzten Artikel, entfernt den unteren Rand */
+.article:nth-last-child(1) {
   margin: 0 !important;
 }
 
+/* Entfernt die Unterstreichung und setzt die Textfarbe für Links in Artikeln */
 .article a {
-  color: #2c3e50;
-  text-decoration: none;
+  color: #2c3e50; /* Textfarbe */
+  text-decoration: none; /* Keine Unterstreichung */
 }
 
+/* Allgemeines Styling für Artikel und Journal-Speicher */
 .article,
 .journal-save {
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
-  box-shadow: 0px 2px 14px #b2bec3;
+  border-radius: 10px; /* Abgerundete Ecken */
+  -webkit-border-radius: 10px; /* Abgerundete Ecken für Webkit */
+  -moz-border-radius: 10px; /* Abgerundete Ecken für Mozilla */
+  -ms-border-radius: 10px; /* Abgerundete Ecken für Microsoft */
+  -o-border-radius: 10px; /* Abgerundete Ecken für Opera */
+  box-shadow: 0px 2px 14px #b2bec3; /* Schatteneffekt */
 }
 
+/* Styling für Lösch- und Share-Buttons */
 .delete-journal-entry,
 .share-button {
-  width: 40px;
+  width: 40px; /* Breite der Buttons */
 }
